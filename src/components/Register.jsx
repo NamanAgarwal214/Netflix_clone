@@ -1,33 +1,28 @@
 import React, { Fragment, useState } from "react";
 import titleImg from "../assets/title.png";
-import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 // import { app } from "../firebase";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
-const Login = () => {
+const Register = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-  const navigate = useNavigate();
-  const submitHandler = (e) => {
+
+  const submitHandler = () => {
     const auth = getAuth();
-    // e.preventDefault();
-    signInWithEmailAndPassword(auth, email, pass)
+    createUserWithEmailAndPassword(auth, email, pass)
       .then((response) => {
-        e.preventDefault();
-        navigate("/");
+        // navigate("/home");
         sessionStorage.setItem(
           "Auth Token",
           response._tokenResponse.refreshToken
         );
       })
       .catch((error) => {
-        if (error.code === "auth/wrong-password") {
-          toast.error("Please check the Password");
-        }
-        if (error.code === "auth/user-not-found") {
-          toast.error("Please check the Email");
+        if (error.code === "auth/email-already-in-use") {
+          toast.error("Email Already in Use");
         }
       });
   };
@@ -42,7 +37,7 @@ const Login = () => {
           </Link>
         </div>
         <div className="login">
-          <h1 style={{ fontSize: "32px", marginBottom: "1rem" }}>Sign In</h1>
+          <h1 style={{ fontSize: "32px", marginBottom: "1rem" }}>Sign Up</h1>
           <form className="login-form" onSubmit={submitHandler}>
             <input
               type="email"
@@ -63,7 +58,7 @@ const Login = () => {
               className="pass"
             />
             <button type="submit" className="sub">
-              Sign In
+              Sign Up
             </button>
             {/* <div
               style={{
@@ -167,4 +162,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

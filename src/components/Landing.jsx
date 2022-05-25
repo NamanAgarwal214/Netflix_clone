@@ -42,9 +42,11 @@ const Landing = () => {
               name="email"
               id="email"
             />
-            <button type="submit" className="btn">
-              Get Started
-            </button>
+            <Link to="/register">
+              <button type="submit" className="btn">
+                Get Started
+              </button>
+            </Link>
             {/* </form> */}
           </div>
         </div>
