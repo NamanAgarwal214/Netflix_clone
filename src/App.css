@@ -1,38 +1,237 @@
-.App {
-  text-align: center;
+.landing {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("./assets/background.jpg");
+  height: 110vh;
+  width: 100%;
+  border-bottom: 8px solid #222;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.login-landing {
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)),
+    url("./assets/background.jpg");
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.logo {
+  width: 220px;
+  height: auto;
+}
+
+.innerNav {
+  display: flex;
+  margin-right: 2rem;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.lang {
+  padding: 0.8rem;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  background: transparent;
+  border: solid 2px white;
+}
+
+.lang > option {
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  background: grey;
+}
+
+.btn {
+  cursor: pointer;
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.9rem;
+  border-radius: 5px;
+  background-color: #e50914;
+  border: transparent;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  padding: 75px 0;
+  max-width: 950px;
+  margin: 0 auto;
+  text-align: center;
+  z-index: 1;
+}
+
+h1,
+h2,
+h3 {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.content > h1 {
+  color: white;
+  font-size: 3.5rem;
+  margin: 0 auto;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.content > h2 {
+  font-size: 1.6rem;
+  color: white;
+  font-weight: 400;
+}
+
+.content > h3 {
+  color: white;
+  font-size: 1.3rem;
+  width: fit-content;
+  margin: auto;
+  margin-bottom: 0.5rem;
+}
+
+.input {
+  font-size: 1rem;
+  font-weight: 600;
+  /* border-right: none; */
+  width: 55%;
+  height: 50px;
+  padding: 0 1rem;
+}
+
+.input::placeholder {
+  text-align: left;
+  padding: 1rem;
+}
+
+.input:focus {
+  outline: none;
+}
+
+/* section 2 */
+
+.sect {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  gap: 1.5rem;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.95);
+  padding: 5rem;
+  height: min-content;
+  border-bottom: 8px solid #222;
+}
+
+.text > h1 {
+  font-size: 3.1rem;
+}
+
+/* .text > h2 {
+  text-align: left;
+} */
+
+.disp {
+  position: relative;
+}
+
+.disp > img {
+  max-width: 100%;
+  height: auto;
+  border: 0;
+}
+
+.video {
+  position: absolute;
+  /* bottom: 2rem; */
+  top: 1rem;
+}
+
+.vid {
+  max-width: 470px;
+  height: auto;
+}
+
+.faqDiv2 {
+  display: flex;
+  flex-direction: row;
+  color: white;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 2rem auto;
+  width: 50%;
+  height: 2rem;
+  background: #303030;
+}
+
+/* footer */
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  color: #757575;
+  width: 100%;
+  margin: 2rem 0;
+}
+
+li {
+  list-style-type: none;
+  margin: 1rem 0;
+}
+
+/* login page */
+
+.login {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
+  /* margin: 2rem 25rem; */
+  width: 350px;
+  margin: auto;
+  padding: 2rem 4rem;
+  background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.email,
+.pass {
+  width: 90%;
+  background-color: #333;
+  border-radius: 4px;
+  border: 0;
+  color: #fff;
+  height: 50px;
+  line-height: 50px;
+  padding: 10px 10px 0;
+  margin: 0.6rem 0;
+  font-size: 1.2rem;
+}
+
+.email::placeholder,
+.pass::placeholder {
+  font-size: 1.1rem;
+  padding: 0.5rem;
+}
+
+.sub {
+  background-color: #e50914;
+  color: #fff;
+  width: 95%;
+  padding: 10px 10px 0;
+  margin: 1.5rem 0;
+  margin-bottom: 0.2rem;
+  height: 50px;
+  border-radius: 4px;
+  border: 0;
 }
