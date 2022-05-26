@@ -1,30 +1,32 @@
 import React, { Fragment, useState } from "react";
 import titleImg from "../assets/title.png";
 import { Link } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { app } from "../firebase";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const Register = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
+  // const navigate = useNavigate();
+  // const [user, setUser] = useState({});
 
-  const submitHandler = () => {
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, pass)
-      .then((response) => {
-        // navigate("/home");
-        sessionStorage.setItem(
-          "Auth Token",
-          response._tokenResponse.refreshToken
-        );
-      })
-      .catch((error) => {
-        if (error.code === "auth/email-already-in-use") {
-          toast.error("Email Already in Use");
-        }
-      });
+  // onAuthStateChanged(auth, (currentUser) => {
+  //   setUser(currentUser);
+  // });
+
+  const submitHandler = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(auth, email, pass);
+      console.log(user);
+      toast.success("Sign Up succesfull");
+    } catch (error) {
+      // const errorCode = error.code;
+      if (error.code === "auth/email-already-in-use") {
+        toast.error("Email Already in Use");
+      }
+    }
   };
 
   return (
@@ -38,7 +40,7 @@ const Register = () => {
         </div>
         <div className="login">
           <h1 style={{ fontSize: "32px", marginBottom: "1rem" }}>Sign Up</h1>
-          <form className="login-form" onSubmit={submitHandler}>
+          <form className="login-form">
             <input
               type="email"
               name="email"
@@ -57,10 +59,10 @@ const Register = () => {
               placeholder="Password"
               className="pass"
             />
-            <button type="submit" className="sub">
+            <button type="button" className="sub" onClick={submitHandler}>
               Sign Up
             </button>
-            {/* <div
+            <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -82,7 +84,7 @@ const Register = () => {
               <div>
                 <p style={{ color: "#8c8c8c" }}>Need Help?</p>
               </div>
-            </div> */}
+            </div>
           </form>
           <div
             style={{
@@ -94,13 +96,19 @@ const Register = () => {
             }}
           >
             <div style={{ color: "#8c8c8c" }}>
-              New to Netflix?
-              <a
-                href="/"
-                style={{ color: "white", textDecoration: "underline" }}
-              >
-                Sign Up now
-              </a>
+              Already a user?
+              <Link to="/login">
+                <p
+                  href="/"
+                  style={{
+                    color: "white",
+                    textDecoration: "underline",
+                    display: "inline-block",
+                  }}
+                >
+                  Sign In
+                </p>
+              </Link>
             </div>
             <div>
               <p style={{ color: "#8c8c8c" }}>
@@ -157,7 +165,7 @@ const Register = () => {
           </div>
         </footer>
       </div>
-      {/* </ToastContainer> */}
+      <ToastContainer />
     </Fragment>
   );
 };

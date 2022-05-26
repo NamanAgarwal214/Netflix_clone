@@ -1,35 +1,31 @@
 import React, { Fragment, useState } from "react";
 import titleImg from "../assets/title.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-// import { app } from "../firebase";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-  const navigate = useNavigate();
-  const submitHandler = (e) => {
-    const auth = getAuth();
-    // e.preventDefault();
-    signInWithEmailAndPassword(auth, email, pass)
-      .then((response) => {
-        e.preventDefault();
-        navigate("/");
-        sessionStorage.setItem(
-          "Auth Token",
-          response._tokenResponse.refreshToken
-        );
-      })
-      .catch((error) => {
-        if (error.code === "auth/wrong-password") {
-          toast.error("Please check the Password");
-        }
-        if (error.code === "auth/user-not-found") {
-          toast.error("Please check the Email");
-        }
-      });
+  // const navigate = useNavigate();
+  const submitHandler = async (e) => {
+    // const auth = getAuth();
+    try {
+      const res = await signInWithEmailAndPassword(auth, email, pass);
+      console.log(res);
+      toast.success("Sign In succesfull");
+      // navigate("/");
+      // sessionStorage.setItem("Auth Token", res._tokenResponse.refreshToken);
+    } catch (error) {
+      if (error.code === "auth/wrong-password") {
+        toast.error("Please check the Password");
+      }
+      if (error.code === "auth/user-not-found") {
+        toast.error("Please check the Email");
+      }
+    }
   };
 
   return (
@@ -43,7 +39,7 @@ const Login = () => {
         </div>
         <div className="login">
           <h1 style={{ fontSize: "32px", marginBottom: "1rem" }}>Sign In</h1>
-          <form className="login-form" onSubmit={submitHandler}>
+          <form className="login-form">
             <input
               type="email"
               name="email"
@@ -62,10 +58,10 @@ const Login = () => {
               placeholder="Password"
               className="pass"
             />
-            <button type="submit" className="sub">
+            <button type="button" className="sub" onClick={submitHandler}>
               Sign In
             </button>
-            {/* <div
+            <div
               style={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -87,7 +83,7 @@ const Login = () => {
               <div>
                 <p style={{ color: "#8c8c8c" }}>Need Help?</p>
               </div>
-            </div> */}
+            </div>
           </form>
           <div
             style={{
@@ -100,12 +96,18 @@ const Login = () => {
           >
             <div style={{ color: "#8c8c8c" }}>
               New to Netflix?
-              <a
-                href="/"
-                style={{ color: "white", textDecoration: "underline" }}
-              >
-                Sign Up now
-              </a>
+              <Link to="/register">
+                <p
+                  href="/"
+                  style={{
+                    color: "white",
+                    textDecoration: "underline",
+                    display: "inline-block",
+                  }}
+                >
+                  Sign Up now
+                </p>
+              </Link>
             </div>
             <div>
               <p style={{ color: "#8c8c8c" }}>
@@ -162,7 +164,7 @@ const Login = () => {
           </div>
         </footer>
       </div>
-      {/* </ToastContainer> */}
+      <ToastContainer />
     </Fragment>
   );
 };
