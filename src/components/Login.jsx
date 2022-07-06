@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import titleImg from "../assets/title.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { auth } from "../firebase";
@@ -9,14 +9,14 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const submitHandler = async (e) => {
     // const auth = getAuth();
     try {
       const res = await signInWithEmailAndPassword(auth, email, pass);
       console.log(res);
+      navigate("/whoswatching");
       toast.success("Sign In succesfull");
-      // navigate("/");
       // sessionStorage.setItem("Auth Token", res._tokenResponse.refreshToken);
     } catch (error) {
       if (error.code === "auth/wrong-password") {
