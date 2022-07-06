@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import titleImg from "../assets/title.png";
 import Card from "./Card";
 
+// whos watching
 const WhosWatching = () => {
   return (
     <Fragment>
